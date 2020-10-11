@@ -91,12 +91,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function flipCard() {
         let cardId = this.getAttribute('data-id')
-        chosenCardNames.push(cardArray[cardId].name)
-        chosenCardIds.push(cardId)
-        this.setAttribute('src', cardArray[cardId].img)
-        if (chosenCardNames.length === 2) {
-            setTimeout(checkForMatch, 400)
+        if (checkClicked(cardId)) {
+            chosenCardNames.push(cardArray[cardId].name)
+            chosenCardIds.push(cardId)
+            this.setAttribute('src', cardArray[cardId].img)
+            if (chosenCardNames.length === 2) {
+                setTimeout(checkForMatch, 400)
+            }
         }
+    }
+
+    // do not allow clicking same card twice
+    let lastClickedId = null;
+    function checkClicked(cardId) {
+        if (lastClickedId === cardId) {
+            return false
+        }
+        lastClickedId = cardId
+        return true
     }
 
     function shuffleArray(array) {
