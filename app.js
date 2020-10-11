@@ -1,54 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cardArray = [
-        {
-            name: 'fries',
-            img: 'images/fries.png'
-        },
-        {
-            name: 'cheeseburger',
-            img: 'images/cheeseburger.png'
-        },
-        {
-            name: 'ice-cream',
-            img: 'images/ice-cream.png'
-        },
-        {
-            name: 'pizza',
-            img: 'images/pizza.png'
-        },
-        {
-            name: 'milkshake',
-            img: 'images/milkshake.png'
-        },
-        {
-            name: 'hotdog',
-            img: 'images/hotdog.png'
-        },
-        {
-            name: 'fries',
-            img: 'images/fries.png'
-        },
-        {
-            name: 'cheeseburger',
-            img: 'images/cheeseburger.png'
-        },
-        {
-            name: 'ice-cream',
-            img: 'images/ice-cream.png'
-        },
-        {
-            name: 'pizza',
-            img: 'images/pizza.png'
-        },
-        {
-            name: 'milkshake',
-            img: 'images/milkshake.png'
-        },
-        {
-            name: 'hotdog',
-            img: 'images/hotdog.png'
-        }
+    const cardNames = [
+        'fries',
+        'cheeseburger',
+        'ice-cream',
+        'pizza',
+        'milkshake',
+        'hotdog'
     ]
+
+    // create cards from names
+    const uniqueCards = cardNames.map(name => ({
+        name,
+        img: `images/${name}.png`
+    }))
+
+    // create array of cards using two of every card
+    const cardArray = uniqueCards.concat(uniqueCards)
 
     const grid = document.querySelector('.grid')
     const score = document.querySelector('#score')
