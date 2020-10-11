@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     const grid = document.querySelector('.grid')
+    const score = document.querySelector('#score')
+
     let chosenCardNames = []
     let chosenCardIds = []
     let clearedCards = []
@@ -81,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         chosenCardNames = []
         chosenCardIds = []
+        score.textContent = clearedCards.length * 2
+        if (clearedCards.length === cardArray.length / 2) {
+            score.textContent = 'Congratulations! You found them all!'
+        }
     }
 
     function flipCard() {
@@ -89,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chosenCardIds.push(cardId)
         this.setAttribute('src', cardArray[cardId].img)
         if (chosenCardNames.length === 2) {
-            setTimeout(checkForMatch, 500)
+            setTimeout(checkForMatch, 400)
         }
     }
 
