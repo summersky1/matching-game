@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const imagePath = 'images/'
+    const fileExtension = '.png'
+    const coverImage = imagePath + 'blank' + fileExtension
+    const blankImage = imagePath + 'white' + fileExtension
+
     const cardNames = [
         'fries',
         'cheeseburger',
@@ -11,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // create cards from names
     const uniqueCards = cardNames.map(name => ({
         name,
-        img: `images/${name}.png`
+        img: imagePath + name + fileExtension
     }))
 
     // create array of cards using two of every card
@@ -20,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
     const score = document.querySelector('#score')
 
+    let lastClickedId = null
     let chosenCardNames = []
     let chosenCardIds = []
     let clearedCards = []
@@ -27,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
             let card = document.createElement('img')
-            card.setAttribute('src', 'images/blank.png')
+            card.setAttribute('src', coverImage)
             card.setAttribute('data-id', i)
             card.addEventListener('click', flipCard)
             grid.appendChild(card)
@@ -40,12 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const secondCardId = chosenCardIds[1]
         if (chosenCardNames[0] === chosenCardNames[1]) {
             alert('You found a match')
-            cards[firstCardId].setAttribute('src', 'images/white.png')
-            cards[secondCardId].setAttribute('src', 'images/white.png')
+            cards[firstCardId].setAttribute('src', blankImage)
+            cards[secondCardId].setAttribute('src', blankImage)
             clearedCards.push(chosenCardNames)
         } else {
-            cards[firstCardId].setAttribute('src', 'images/blank.png')
-            cards[secondCardId].setAttribute('src', 'images/blank.png')
+            cards[firstCardId].setAttribute('src', coverImage)
+            cards[secondCardId].setAttribute('src', coverImage)
             alert('Sorry, try again')
         }
         chosenCardNames = []
@@ -69,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // do not allow clicking same card twice
-    let lastClickedId = null;
     function checkClicked(cardId) {
         if (lastClickedId === cardId) {
             return false
