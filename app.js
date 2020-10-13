@@ -69,9 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chosenCardNames.push(cardArray[cardId].name)
             chosenCardIds.push(cardId)
             this.setAttribute('src', cardArray[cardId].img)
-            this.classList.remove('animated', 'flipInY', 'fast');
-            this.offsetWidth // necessary to replay animation
-            this.classList.add('animated', 'flipInY', 'fast');
+            animateCard(this)
             if (chosenCardNames.length === 2) {
                 setTimeout(checkForMatch, 400)
             }
@@ -85,6 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         lastClickedId = cardId
         return true
+    }
+
+    function animateCard(card) {
+        let animationClasses = ['animated', 'flipInY', 'fast']
+        card.classList.remove(...animationClasses); // using spread operator from ES6
+        card.offsetWidth // necessary to replay animation
+        card.classList.add(...animationClasses);
     }
 
     function shuffleArray(array) {
