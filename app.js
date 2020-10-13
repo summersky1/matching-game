@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cards[secondCardId].setAttribute('src', coverImage)
             alert('Sorry, try again')
         }
+        lastClickedId = null
         chosenCardNames = []
         chosenCardIds = []
         score.textContent = clearedCards.length * 2
@@ -68,6 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
             chosenCardNames.push(cardArray[cardId].name)
             chosenCardIds.push(cardId)
             this.setAttribute('src', cardArray[cardId].img)
+            this.classList.remove('animated', 'flipInY', 'fast');
+            this.offsetWidth // necessary to replay animation
+            this.classList.add('animated', 'flipInY', 'fast');
             if (chosenCardNames.length === 2) {
                 setTimeout(checkForMatch, 400)
             }
