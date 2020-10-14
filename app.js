@@ -26,8 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const score = document.querySelector('#score')
 
     let lastClickedId = null
-    let chosenCardNames = []
-    let chosenCardIds = []
+    let chosenCards = []
     let clearedCards = []
 
     function createBoard() {
@@ -42,23 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkForMatch() {
         let cards = document.querySelectorAll('img')
-        const firstCardId = chosenCardIds[0]
-        const secondCardId = chosenCardIds[1]
-        if (chosenCardNames[0] === chosenCardNames[1]) {
+        const firstCardId = chosenCards[0].id
+        const secondCardId = chosenCards[1].id
+        if (chosenCards[0].name === chosenCards[1].name) {
             alert('You found a match')
             cards[firstCardId].setAttribute('src', blankImage)
             cards[secondCardId].setAttribute('src', blankImage)
             cards[firstCardId].removeEventListener('click', flipCard)
             cards[secondCardId].removeEventListener('click', flipCard)
-            clearedCards.push(chosenCardNames)
+            clearedCards.push(chosenCards)
         } else {
             cards[firstCardId].setAttribute('src', coverImage)
             cards[secondCardId].setAttribute('src', coverImage)
             alert('Sorry, try again')
         }
         lastClickedId = null
-        chosenCardNames = []
-        chosenCardIds = []
+        chosenCards = []
         score.textContent = clearedCards.length * 2
         if (clearedCards.length === cardArray.length / 2) {
             score.textContent = 'Congratulations! You found them all!'
@@ -66,13 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipCard() {
-        let cardId = this.getAttribute('data-id')
-        if (checkClicked(cardId)) {
-            chosenCardNames.push(cardArray[cardId].name)
-            chosenCardIds.push(cardId)
-            this.setAttribute('src', cardArray[cardId].img)
+        let chosenCardId = this.getAttribute('data-id')
+        if (checkClicked(chosenCardId)) {
+            chosenCards.push({ id: chosenCardId, name: cardArray[chosenCardId].name })
+            this.setAttribute('src', cardArray[chosenCardId].img)
             animateCard(this)
-            if (chosenCardNames.length === 2) {
+            if (chosenCards.length === 2) {
                 setTimeout(checkForMatch, 400)
             }
         }
