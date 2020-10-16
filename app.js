@@ -3,23 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileExtension = '.png'
     const coverImage = imagePath + 'card_back' + fileExtension
 
-    const cardNames = [
-        'c01',
-        'c02',
-        'c03',
-        'c04',
-        'c05',
-        'c06'
-    ]
+    const cardNumbers = ['01', '02', '10', '11', '12', '13']
+    // clubs, diamonds, hearts, spades
+    const cardTypes = ['c', 'd', 'h', 's']
 
-    // create cards from names
-    const uniqueCards = cardNames.map(name => ({
-        name,
-        img: imagePath + name + fileExtension
-    }))
-
-    // create array of cards using two of every card
-    const cardArray = uniqueCards.concat(uniqueCards)
+    const cardArray = setupCards()
 
     const grid = document.querySelector('#grid')
     const score = document.querySelector('#score')
@@ -27,6 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastClickedId = null
     let chosenCards = []
     let clearedCards = []
+
+    function setupCards() {
+        let allCards = []
+        for (const type of cardTypes) {
+            for (const number of cardNumbers) {
+                allCards.push(type + number)
+            }
+        }
+        shuffleArray(allCards)
+        let selectedCards = allCards.slice(0, 6)
+        // create cards required for game using two of every card
+        let cardsForGame = selectedCards.concat(selectedCards)
+        cardsForGame = cardsForGame.map(name => ({
+            name,
+            img: imagePath + name + fileExtension
+        }))
+        shuffleArray(cardsForGame)
+        return cardsForGame
+    }
 
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
@@ -44,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstCardId = chosenCards[0].id
         const secondCardId = chosenCards[1].id
         if (chosenCards[0].name === chosenCards[1].name) {
-            alert('You found a match')
             cards[firstCardId].style.opacity = 0.5
             cards[secondCardId].style.opacity = 0.5
             cards[firstCardId].removeEventListener('click', flipCard)
@@ -53,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cards[firstCardId].setAttribute('src', coverImage)
             cards[secondCardId].setAttribute('src', coverImage)
-            alert('Sorry, try again')
+            animateCard(cards[firstCardId])
+            animateCard(cards[secondCardId])
         }
         lastClickedId = null
         chosenCards = []
@@ -70,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.setAttribute('src', cardArray[chosenCardId].img)
             animateCard(this)
             if (chosenCards.length === 2) {
-                setTimeout(checkForMatch, 400)
+                setTimeout(checkForMatch, 900)
             }
         }
     }
@@ -98,6 +105,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    shuffleArray(cardArray)
     createBoard()
 })
