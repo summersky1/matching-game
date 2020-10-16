@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePath = 'images/'
     const fileExtension = '.png'
     const coverImage = imagePath + 'cover' + fileExtension
-    const blankImage = imagePath + 'blank' + fileExtension
 
     const cardNames = [
         'fries',
@@ -45,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const secondCardId = chosenCards[1].id
         if (chosenCards[0].name === chosenCards[1].name) {
             alert('You found a match')
-            cards[firstCardId].setAttribute('src', blankImage)
-            cards[secondCardId].setAttribute('src', blankImage)
+            cards[firstCardId].style.opacity = 0.5
+            cards[secondCardId].style.opacity = 0.5
             cards[firstCardId].removeEventListener('click', flipCard)
             cards[secondCardId].removeEventListener('click', flipCard)
             clearedCards.push(chosenCards)
