@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const imagePath = 'images/'
     const fileExtension = '.png'
-    const coverImage = imagePath + 'cover' + fileExtension
+    const coverImage = imagePath + 'card_back' + fileExtension
 
     const cardNames = [
-        'fries',
-        'cheeseburger',
-        'ice-cream',
-        'pizza',
-        'milkshake',
-        'hotdog'
+        'c01',
+        'c02',
+        'c03',
+        'c04',
+        'c05',
+        'c06'
     ]
 
     // create cards from names
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // create array of cards using two of every card
     const cardArray = uniqueCards.concat(uniqueCards)
 
-    const grid = document.querySelector('.grid')
+    const grid = document.querySelector('#grid')
     const score = document.querySelector('#score')
 
     let lastClickedId = null
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let card = document.createElement('img')
             card.setAttribute('src', coverImage)
             card.setAttribute('data-id', i)
+            card.classList.add('col-3', 'my-2')
             card.addEventListener('click', flipCard)
             grid.appendChild(card)
         }
