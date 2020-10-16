@@ -47,20 +47,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkForMatch() {
-        let cards = document.querySelectorAll('img')
-        const firstCardId = chosenCards[0].id
-        const secondCardId = chosenCards[1].id
+        let cardElement1 = document.querySelector(`[data-id="${chosenCards[0].id}"]`)
+        let cardElement2 = document.querySelector(`[data-id="${chosenCards[1].id}"]`)
         if (chosenCards[0].name === chosenCards[1].name) {
-            cards[firstCardId].style.opacity = 0.5
-            cards[secondCardId].style.opacity = 0.5
-            cards[firstCardId].removeEventListener('click', flipCard)
-            cards[secondCardId].removeEventListener('click', flipCard)
+            cardElement1.style.opacity = 0.5
+            cardElement2.style.opacity = 0.5
+            cardElement1.removeEventListener('click', flipCard)
+            cardElement2.removeEventListener('click', flipCard)
             clearedCards.push(chosenCards)
         } else {
-            cards[firstCardId].setAttribute('src', coverImage)
-            cards[secondCardId].setAttribute('src', coverImage)
-            animateCard(cards[firstCardId])
-            animateCard(cards[secondCardId])
+            cardElement1.setAttribute('src', coverImage)
+            cardElement2.setAttribute('src', coverImage)
+            animateCard(cardElement1)
+            animateCard(cardElement2)
         }
         lastClickedId = null
         chosenCards = []
