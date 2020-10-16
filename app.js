@@ -65,6 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
         lastClickedId = null
         chosenCards = []
         score.textContent = clearedCards.length * 2
+        // re-enable clicking after finishing check
+        document.querySelector('#grid').style.pointerEvents = 'auto'
+
         if (clearedCards.length === cardArray.length / 2) {
             score.textContent = 'Congratulations! You found them all!'
         }
@@ -77,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.setAttribute('src', cardArray[chosenCardId].img)
             animateCard(this)
             if (chosenCards.length === 2) {
+                // disable clicking when checking for match
+                document.querySelector('#grid').style.pointerEvents = 'none'
                 setTimeout(checkForMatch, 900)
             }
         }
