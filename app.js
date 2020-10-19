@@ -36,14 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createBoard() {
+        let cardElements = []
         for (let i = 0; i < cardArray.length; i++) {
             let card = document.createElement('img')
-            card.setAttribute('src', coverImage)
+            card.setAttribute('src', cardArray[i].img)
             card.setAttribute('data-id', i)
             card.classList.add('col-3', 'my-2')
             card.addEventListener('click', flipCard)
             grid.appendChild(card)
+            cardElements.push(card)
         }
+        // show cards for a short while before hiding
+        setTimeout(hideCards, 1200, cardElements)
     }
 
     function checkForMatch() {
@@ -97,9 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animateCard(card) {
         let animationClasses = ['animated', 'flipInY', 'fast']
-        card.classList.remove(...animationClasses); // using spread operator from ES6
+        card.classList.remove(...animationClasses) // using spread operator from ES6
         card.offsetWidth // necessary to replay animation
-        card.classList.add(...animationClasses);
+        card.classList.add(...animationClasses)
+    }
+
+    function hideCards(cards) {
+        cards.forEach(card => {
+            card.setAttribute('src', coverImage)
+            animateCard(card)
+        })
     }
 
     function shuffleArray(array) {
