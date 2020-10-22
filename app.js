@@ -51,19 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkForMatch() {
-        let cardElement1 = document.querySelector(`[data-id="${chosenCards[0].id}"]`)
-        let cardElement2 = document.querySelector(`[data-id="${chosenCards[1].id}"]`)
+        let cardElements = [0,1].map(index => document.querySelector(`[data-id="${chosenCards[index].id}"]`))
         if (chosenCards[0].name === chosenCards[1].name) {
-            cardElement1.style.opacity = 0.5
-            cardElement2.style.opacity = 0.5
-            cardElement1.removeEventListener('click', flipCard)
-            cardElement2.removeEventListener('click', flipCard)
+            cardElements.forEach(element => {
+                element.style.opacity = 0.5
+                element.removeEventListener('click', flipCard)
+            })
             clearedCards.push(chosenCards)
         } else {
-            cardElement1.setAttribute('src', coverImage)
-            cardElement2.setAttribute('src', coverImage)
-            animateCard(cardElement1)
-            animateCard(cardElement2)
+            cardElements.forEach(element => {
+                element.setAttribute('src', coverImage)
+                animateCard(element)
+            })
         }
         lastClickedId = null
         chosenCards = []
