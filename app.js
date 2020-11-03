@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.setAttribute('data-id', i)
             card.classList.add('col-3', 'my-2')
             card.addEventListener('click', flipCard)
+            card.style.cursor = 'pointer'
             grid.appendChild(card)
             cardElements.push(card)
         }
